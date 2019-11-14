@@ -72,7 +72,7 @@ class CoNLLDataset(object):
                         words, tags = [], []
                 else:
                     ls = line.split(' ')
-                    word, tag = ls[0],ls[1]
+                    word, pos, tag = ls[0],ls[1],ls[2]
                     if self.processing_word is not None:
                         word = self.processing_word(word)
                     if self.processing_tag is not None:
