@@ -31,8 +31,14 @@ Similar to [Lample et al.](https://arxiv.org/abs/1603.01360) and [Ma and Hovy](h
 
 ## Getting started
 
+1. Install Dependences
 
-1. Download the GloVe vectors with
+```
+conda env create -f environment.yml
+conda activate sequence_tagging
+```
+
+2. Download the GloVe vectors with
 
 ```
 make download_glove
@@ -40,11 +46,25 @@ make download_glove
 
 Alternatively, you can download them manually [here](https://nlp.stanford.edu/projects/glove/) and update the `glove_filename` entry in `config.py`. You can also choose not to load pretrained word vectors by changing the entry `use_pretrained` to `False` in `model/config.py`.
 
-2. Build the training data, train and evaluate the model with
+3. Download Kaggle Dataset
+```
+https://www.kaggle.com/c/text-tagging2/data
+```
+
+Once you have produced your data files, change the parameters in `config.py` like
+
+```
+# dataset
+filename_train   = "data/dataset/train.conll"
+filename_test    = "data/dataset/test.conll"
+filename_valid   = "data/dataset/valid.conll"
+```
+
+
+4. Build the training data, train and evaluate the model with
 ```
 make run
 ```
-
 
 ## Details
 
@@ -69,7 +89,7 @@ python train.py
 python evaluate.py
 ```
 
-3. Generate the submission file
+3. Generate the submission file (only kaggle)
 ```
 python build_submission.py
 
