@@ -1,6 +1,9 @@
 import os
-import tensorflow as tf
+import logging, os
 
+#logging.disable(logging.WARNING)
+#os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
+import tensorflow as tf
 
 class BaseModel(object):
     """Generic class for general methods that are not specific to NER"""

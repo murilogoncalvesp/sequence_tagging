@@ -8,7 +8,7 @@ def main():
     """Procedure to build data
 
     You MUST RUN this procedure. It iterates over the whole dataset (train,
-    dev and test) and extract the vocabularies in terms of words, tags, and
+    test and valid) and extract the vocabularies in terms of words, tags, and
     characters. Having built the vocabularies it writes them in a file. The
     writing of vocabulary in a file assigns an id (the line #) to each word.
     It then extract the relevant GloVe vectors and stores them in a np array
@@ -24,12 +24,12 @@ def main():
     processing_word = get_processing_word(lowercase=True)
 
     # Generators
-    dev   = CoNLLDataset(config.filename_dev, processing_word)
-    test  = CoNLLDataset(config.filename_test, processing_word)
-    train = CoNLLDataset(config.filename_train, processing_word)
+    test   = CoNLLDataset(config.filename_test, processing_word)
+    valid  = CoNLLDataset(config.filename_valid, processing_word)
+    train  = CoNLLDataset(config.filename_train, processing_word)
 
     # Build Word and Tag vocab
-    vocab_words, vocab_tags = get_vocabs([train, dev, test])
+    vocab_words, vocab_tags = get_vocabs([train, test, valid])
     vocab_glove = get_glove_vocab(config.filename_glove)
 
     vocab = vocab_words & vocab_glove
@@ -49,7 +49,6 @@ def main():
     train = CoNLLDataset(config.filename_train)
     vocab_chars = get_char_vocab(train)
     write_vocab(vocab_chars, config.filename_chars)
-
 
 if __name__ == "__main__":
     main()

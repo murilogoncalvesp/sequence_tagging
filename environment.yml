@@ -1,0 +1,19 @@
+name: sequence_tagging
+channels:
+- anaconda
+- conda-forge
+dependencies:
+- python=3.6.7
+- pandas=0.25.1
+- matplotlib=2.2.2
+- scipy=1.3.1
+- numpy=1.17.0
+- scikit-learn=0.21.2
+- requests=2.18.4
+- jupyterlab=1.0.2
+- pip
+- category_encoders
+- pip:
+  - imbalanced-learn==0.4.3
+  - unidecode==1.1.1
+  - tensorflow-gpu==1.15

@@ -53,24 +53,24 @@ class Config():
                            if self.use_pretrained else None)
 
     # general config
-    dir_output = "results/test/"
-    dir_model = dir_output + "model.weights/"
-    path_log = dir_output + "log.txt"
+    dir_output  = "results/test/"
+    dir_model   = dir_output + "model.weights/"
+    path_log    = dir_output + "log.txt"
 
     # embeddings
-    dim_word = 300
+    dim_word = 50
     dim_char = 100
 
     # glove files
-    filename_glove = "data/glove_s{}.txt".format(dim_word)
+    filename_glove = "data/glove.6B/glove.6B.{}d.txt".format(dim_word)
     # trimmed embeddings (created from glove_filename with build_data.py)
     filename_trimmed = "data/glove_s{}.trimmed.npz".format(dim_word)
     use_pretrained = True
 
     # dataset
-    filename_dev = "data/dev.conll"
-    filename_test = "data/test.conll"
-    filename_train = "data/train.conll"
+    filename_train   = "data/dataset/train.conll"
+    filename_test    = "data/dataset/test.conll"
+    filename_valid   = "data/dataset/valid.conll"
 
     # filename_dev = filename_test = filename_train = "data/test.txt" # test
 
@@ -78,24 +78,24 @@ class Config():
 
     # vocab (created from dataset with build_data.py)
     filename_words = "data/words.txt"
-    filename_tags = "data/tags.txt"
+    filename_tags  = "data/tags.txt"
     filename_chars = "data/chars.txt"
 
     # training
-    train_embeddings = False
-    nepochs = 15
-    dropout = 0.5
-    batch_size = 20
-    lr_method = "sgd"
-    lr = 0.1
-    lr_decay = 0.9
-    clip = -1  # if negative, no clipping
-    nepoch_no_imprv = 3
+    train_embeddings    = False
+    nepochs             = 5
+    dropout             = 0.7
+    batch_size          = 100
+    lr_method           = "sgd"
+    lr                  = 0.1
+    lr_decay            = 0.9
+    clip                = -1  # if negative, no clipping
+    nepoch_no_imprv     = 3
 
     # model hyperparameters
-    hidden_size_char = 50  # lstm on chars
-    hidden_size_lstm = 100  # lstm on word embeddings
+    hidden_size_char    = 5  # lstm on chars
+    hidden_size_lstm    = 10  # lstm on word embeddings
 
     # NOTE: if both chars and crf, only 1.6x slower on GPU
-    use_crf = False  # if crf, training is 1.7x slower on CPU
-    use_chars = False  # if char embedding, training is 3.5x slower on CPU
+    use_crf     = False  # if crf, training is 1.7x slower on CPU
+    use_chars   = False  # if char embedding, training is 3.5x slower on CPU

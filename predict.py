@@ -1,6 +1,7 @@
 from model.data_utils import CoNLLDataset
 from model.ner_model import NERModel
 from model.config import Config
+import argparse
 
 
 def align_data(data):
@@ -32,7 +33,7 @@ def align_data(data):
     return data_aligned
 
 
-def main():
+def main(args):
     # create instance of config
     config = Config()
 
@@ -42,12 +43,12 @@ def main():
     model.restore_session(config.dir_model)
 
     # create dataset
-    test = CoNLLDataset(config.filename_test, config.processing_word,
-                        config.processing_tag, config.max_iter)
-
-    # evaluate and interact
-    model.evaluate(test)
+    print(model.predict(args.sentence))
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser()
+    # Model Params
+    parser.add_argument('--sentence', type=str, default="", help='')
+
+    main(parser.parse_args())

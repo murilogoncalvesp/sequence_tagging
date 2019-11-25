@@ -1,8 +1,7 @@
 import numpy as np
 import os
 import tensorflow as tf
-
-
+import pandas as pd
 from .data_utils import minibatches, pad_sequences, get_chunks
 from .general_utils import Progbar
 from .base_model import BaseModel
@@ -15,7 +14,8 @@ class NERModel(BaseModel):
         super(NERModel, self).__init__(config)
         self.idx_to_tag = {idx: tag for tag, idx in
                            self.config.vocab_tags.items()}
-
+        self.idx_to_word = {idx: word for word, idx in
+                           self.config.vocab_words.items()}
 
     def add_placeholders(self):
         """Define placeholders = entries to computational graph"""
@@ -280,6 +280,7 @@ class NERModel(BaseModel):
 
         # iterate over dataset
         for i, (words, labels) in enumerate(minibatches(train, batch_size)):
+
             fd, _ = self.get_feed_dict(words, labels, self.config.lr,
                     self.config.dropout)
 
@@ -336,6 +337,47 @@ class NERModel(BaseModel):
 
         return {"acc": 100*acc, "f1": 100*f1}
 
+
+    def build_submission(self, valid, path_submission):
+        """Build submission kaggle file on valid set
+
+        Args:
+            valid: dataset that yields tuple of (sentences, tags)
+
+        Returns:
+            None
+
+        """
+        true_labels = []
+        pred_labels = []
+        pred_words  = []
+        idx_line    = []
+        index       = 0
+        
+        # dataset
+        for words, labels in minibatches(valid, self.config.batch_size):
+            labels_pred, sequence_lengths = self.predict_batch(words)
+
+            # batch
+            for word, lab, lab_pred, length in zip(words, labels, labels_pred,
+                                                        sequence_lengths):
+                word     = word[:length]
+                lab      = lab[:length]
+                lab_pred = lab_pred[:length]
+
+                # sentence
+                for i in range(length):
+                    pred_labels.append(self.idx_to_tag[lab_pred[i]])
+                    index = index + 1
+                    idx_line.append(index)
+
+                index = index + 1
+
+        df = pd.DataFrame({"index": idx_line, "label": pred_labels})
+
+        print(df.head(10))
+
+        return df.to_csv(path_submission, index=False)
 
     def predict(self, words_raw):
         """Returns list of tags

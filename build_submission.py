@@ -42,11 +42,11 @@ def main():
     model.restore_session(config.dir_model)
 
     # create dataset
-    test = CoNLLDataset(config.filename_test, config.processing_word,
+    valid = CoNLLDataset(config.filename_valid, config.processing_word,
                         config.processing_tag, config.max_iter)
 
     # evaluate and interact
-    model.evaluate(test)
+    model.build_submission(valid, config.dir_output+"submission.csv")
 
 
 if __name__ == "__main__":

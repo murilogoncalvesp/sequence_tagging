@@ -35,7 +35,7 @@ Similar to [Lample et al.](https://arxiv.org/abs/1603.01360) and [Ma and Hovy](h
 1. Download the GloVe vectors with
 
 ```
-make glove
+make download_glove
 ```
 
 Alternatively, you can download them manually [here](https://nlp.stanford.edu/projects/glove/) and update the `glove_filename` entry in `config.py`. You can also choose not to load pretrained word vectors by changing the entry `use_pretrained` to `False` in `model/config.py`.
@@ -69,15 +69,17 @@ python train.py
 python evaluate.py
 ```
 
+3. Generate the submission file
+```
+python build_submission.py
 
+```
 Data iterators and utils are in `model/data_utils.py` and the model with training/test procedures is in `model/ner_model.py`
 
 Training time on NVidia Tesla K80 is 110 seconds per epoch on CoNLL train set using characters embeddings and CRF.
 
 
-
 ## Training Data
-
 
 The training data must be in the following format (identical to the CoNLL2003 dataset).
 
