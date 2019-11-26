@@ -361,8 +361,8 @@ class NERModel(BaseModel):
             # batch
             for word, lab, lab_pred, length in zip(words, labels, labels_pred,
                                                         sequence_lengths):
-                word     = word[:length]
-                lab      = lab[:length]
+                #word     = word[:length]
+                #lab      = lab[:length]
                 lab_pred = lab_pred[:length]
 
                 # sentence
