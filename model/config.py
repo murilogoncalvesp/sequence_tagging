@@ -93,9 +93,9 @@ class Config():
     nepoch_no_imprv     = 3
 
     # model hyperparameters
-    hidden_size_char    = 5  # lstm on chars
-    hidden_size_lstm    = 10  # lstm on word embeddings
+    hidden_size_char    = 16  # lstm on chars
+    hidden_size_lstm    = 200  # lstm on word embeddings
 
     # NOTE: if both chars and crf, only 1.6x slower on GPU
-    use_crf     = False  # if crf, training is 1.7x slower on CPU
-    use_chars   = False  # if char embedding, training is 3.5x slower on CPU
+    use_crf     = True  # if crf, training is 1.7x slower on CPU
+    use_chars   = True  # if char embedding, training is 3.5x slower on CPU
