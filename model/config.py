@@ -58,7 +58,7 @@ class Config():
     path_log    = dir_output + "log.txt"
 
     # embeddings
-    dim_word = 50
+    dim_word = 300
     dim_char = 100
 
     # glove files
@@ -83,11 +83,11 @@ class Config():
 
     # training
     train_embeddings    = False
-    nepochs             = 5
+    nepochs             = 10
     dropout             = 0.7
     batch_size          = 100
-    lr_method           = "sgd"
-    lr                  = 0.1
+    lr_method           = "adam"
+    lr                  = 0.01
     lr_decay            = 0.9
     clip                = -1  # if negative, no clipping
     nepoch_no_imprv     = 3
