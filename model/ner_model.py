@@ -144,7 +144,6 @@ class NERModel(BaseModel):
 
                 # read and concat output
                 _, ((_, output_fw), (_, output_bw)) = _output
-                _, ((_, output_fw1), (_, output_bw1)) = _output1
                 output = tf.concat([output_fw, output_bw], axis=-1)
 
                 # shape = (batch size, max sentence length, char hidden size)
