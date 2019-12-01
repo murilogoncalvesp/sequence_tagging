@@ -142,18 +142,10 @@ class NERModel(BaseModel):
                         cell_fw, cell_bw, char_embeddings,
                         sequence_length=word_lengths, dtype=tf.float32)
 
-                # bi lstm on chars
-                cell_fw1 = tf.contrib.rnn.LSTMCell(self.config.hidden_size_char,
-                        state_is_tuple=True)
-                cell_bw1 = tf.contrib.rnn.LSTMCell(self.config.hidden_size_char,
-                        state_is_tuple=True)
-                _output1 = tf.nn.bidirectional_dynamic_rnn(
-                        cell_fw1, cell_bw1, _output,
-                        sequence_length=self.config.hidden_size_char, dtype=tf.float32)
                 # read and concat output
                 _, ((_, output_fw), (_, output_bw)) = _output
                 _, ((_, output_fw1), (_, output_bw1)) = _output1
-                output = tf.concat([output_fw, output_bw, output_fw1, output_bw1], axis=-1)
+                output = tf.concat([output_fw, output_bw], axis=-1)
 
                 # shape = (batch size, max sentence length, char hidden size)
                 output = tf.reshape(output,

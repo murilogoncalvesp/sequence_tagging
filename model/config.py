@@ -59,7 +59,7 @@ class Config():
 
     # embeddings
     dim_word = 300
-    dim_char = 100
+    dim_char = 300
 
     # glove files
     filename_glove = "data/glove.6B/glove.6B.{}d.txt".format(dim_word)
