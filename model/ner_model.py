@@ -149,7 +149,7 @@ class NERModel(BaseModel):
                         state_is_tuple=True)
                 _output1 = tf.nn.bidirectional_dynamic_rnn(
                         cell_fw1, cell_bw1, _output,
-                        sequence_length=word_lengths, dtype=tf.float32)
+                        sequence_length=self.config.hidden_size_char, dtype=tf.float32)
                 # read and concat output
                 _, ((_, output_fw), (_, output_bw)) = _output
                 _, ((_, output_fw1), (_, output_bw1)) = _output1
